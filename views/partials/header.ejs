@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes Application</title>
+    <style>
+        /* Header styling */
+        .header {
+            width: 100vw; /* Full viewport width */
+            background-color: #93cfa5; /* Background color */
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Header title styling */
+        .header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        /* Icons styling at the end */
+        .header-icons {
+            font-size: 24px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .header-icons span {
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .header-icons span:hover {
+            color: #4CAF50; /* Change icon color on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Notes</h1>
+        <!-- Icons at the end of the header -->
+        <div class="header-icons">
+            <span title="Add Note">✍️</span>
+            <span title="View Notes">📖</span>
+            <span title="Settings">⚙️</span>
+        </div>
+    </div>
+</body>
+</html>

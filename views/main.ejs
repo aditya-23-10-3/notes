@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes Application</title>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Search section fixed on the left */
+        .search {
+            height: 100%;
+            width: 15%;
+            background-color: #f5f5f5;
+            border-right: 1px solid #ccc;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .search input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        /* Main content section for notes */
+        .main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Header section for buttons and title */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin: 0;
+            color: #444;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        button {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #ddd;
+        }
+
+        .content {
+            flex-grow: 1;
+            background-color: #fafafa;
+            /* border: 1px solid #ccc; */
+            border-radius: 5px;
+            padding: 20px;
+            font-size: 18px;
+            color: #555;
+            box-sizing: border-box;
+        }
+
+        .toggle-button {
+            position: absolute;
+            left: 15%;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: transparent;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #444;
+        }
+
+        .toggle-button:hover {
+            color: #000;
+        }
+        .input{
+            height: 100%;
+        }
+        .note-item {
+        display: flex; /* Flexbox for horizontal alignment */
+        justify-content: space-between; /* Space between text and button */
+        align-items: center; /* Vertically center align */
+       }
+
+       .note-item span {
+            margin-right: 10px; /* Space between text and button */
+       }
+
+        #add {
+            background-color: #4CAF50; /* Green background */
+            color: white; /* White icon */
+            border: none;
+            padding: 5px 8px; /* Small padding */
+            border-radius: 4px; /* Rounded corners */
+            cursor: pointer;
+            font-size: 12px; /* Small icon size */
+            transition: background-color 0.3s; /* Hover effect */
+        }
+
+        #add span {
+            font-size: 12px; /* Icon size */
+        }
+
+        #add:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+
+    #add:focus {
+        outline: none; /* Remove button focus outline */
+    }
+    .note-list {
+        display: flex;
+        flex-direction: column; /* Stack items vertically */
+    }
+
+    .note-list li {
+        margin-bottom: 10px; /* Optional: space between list items */
+    }
+    #edit {
+        background-color: white; 
+        color: white; /* White icon */
+        border: none;
+        padding: 5px 8px; /* Small padding */
+        border-radius: 4px; /* Rounded corners */
+        cursor: pointer;
+        font-size: 12px; /* Small icon size */
+        transition: background-color 0.3s; /* Hover effect */
+    }
+    #edit span {
+        font-size: 12px; /* Icon size */
+    }
+
+    #edit:hover {
+        background-color: rgb(244, 238, 238); /* Darker green on hover */
+    }
+
+    #edit:focus {
+        outline: none; /* Remove button focus outline */
+    }
+
+    .edit {
+        display: flex; /* Aligns children in a row */
+        align-items: center; /* Vertically centers the items */
+        gap: 10px; /* Adds some space between the buttons */
+    }
+    .edit button {
+        padding: 5px 10px; /* Reduce padding to make buttons smaller */
+        font-size: 12px; /* Smaller font size */
+        height: auto; /* Adjust the height */
+        cursor: pointer; /* Pointer cursor for better UX */
+    }
+    /* Style for the Private checkbox */
+    #privateNoteCheckbox {
+        width: 15px; /* Make the checkbox smaller */
+        height: 15px;
+        cursor: pointer;
+        accent-color: #4CAF50; /* Optional: set color for modern browsers */
+    }
+
+    /* Style for the label */
+    label[for="privateNoteCheckbox"] {
+        font-size: 14px; /* Smaller font size */
+        color: #444; /* Darker text color */
+        /* margin-left: 5px; */
+        cursor: pointer; /* Hand cursor for better UX */
+        font-weight: 500; /* Slightly bolder */
+    }
+
+
+
+    </style>
+</head>
+<body>
+
+    
+
+    <!-- Search section on the left -->
+    <!-- <div class="search">
+        <input type="text" name="search" placeholder="Search">
+    </div> -->
+
+    <!-- Main section -->
+
+    <div class="main">
+        <!-- Header section with buttons -->
+
+        <div class="header">
+            <h1>Notes</h1>
+        </div>
+        
+        <div>
+            
+            <%if(notes.length > 0){%>
+                <h2>All Notes</h2>
+                <ul class="note-list">
+                <% notes.forEach(function(note) { %>
+                    <li>
+                        <div class="note-item">
+                            <span><%= note.title %> <%= note.content %></span>
+                        </div>
+                    </li>
+                    <div class="edit">
+                        <form action="/edit" method="post">
+                            <input type="hidden" value="<%= note.id %>" name="updateNoteId">
+                            
+                        
+                            <input id="inputTitle<%=note.id%>" type="text" name="updatedItemTitle" value="<%= note.title %>" autocomplete="off" hidden="true" />
+                            <input id="inputContent<%=note.id%>" type="text" name="updatedItemContent" value="<%= note.content %>" autocomplete="off" hidden="true" />
+                        
+                    
+                            <button id="edit<%=note.id%>" title="edit" type="button" onclick="handler('<%=note.id%>')">
+                                <span>✏️</span>
+                            </button>
+                            <button id ="done<%= note.id%>" type="submit" hidden="true">
+                                <span>Done</span>
+                            </button>
+                        </form>  
+                        <form action="/delete" method="post">
+                            <button id="deleteItem" title="Delete note" name="noteToBeDeleted" type="submit" value="<%= note.id%>">
+                                <span>🗑️</span>
+                            </button>
+                        </form>                        
+                    </div>
+                    <div class="delete">
+                        
+                    </div>
+            <% }) %>
+                </ul>
+                
+            <%}else{ %>
+                <h2>No Notes</h2>
+            <%}%>
+            <div class="userNotes">
+                <label for="users">Select User:</label>
+                <select name="users" id="users">
+                  <% if (users.length > 0) { %>
+                    <% users.forEach(user => { %>
+                      <option value="<%= user.username %>"><%= user.username %></option>
+                    <% }); %>
+                  <% } else { %>
+                    <option value="">No users available</option>
+                  <% } %>
+                </select>
+                <button type="submit">Show Notes</button>
+              </div>
+              
+            
+        </div>
+    
+        <!-- Content input for notes -->
+        <div class="content">
+            <form action="/add" method="post">
+                <input type="text" placeholder="Title" name="title">
+                <input type="text" placeholder="Note" name="content">
+                <button id="add" title="Add new note" type="submit">
+                    <span>+</span>
+                </button>
+                <input type="checkbox" id="privateNoteCheckbox" name="is_private">
+                <label for="privateNoteCheckbox">Private</label>
+
+
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function handler(id) {
+            // Show the input fields by removing their hidden attribute
+            console.log("Aditya");
+            document.getElementById("inputTitle" + id).removeAttribute("hidden");
+            document.getElementById("inputContent" + id).removeAttribute("hidden");
+            document.getElementById("done" + id).removeAttribute("hidden");
+            document.getElementById("edit" + id).setAttribute("hidden", true);
+        }
+        function getNotes(){
+            console.log("Aditya");
+        }
+    </script>
+        
+</body>
+</html>
+
