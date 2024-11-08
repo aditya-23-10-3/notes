@@ -12,7 +12,11 @@ const port = 3000;
 const saltRounds = 10;
 
 
+// Set EJS as the view engine
+app.set('view engine', 'ejs');
 
+// Define the views directory (optional if located in 'views' folder)
+app.set('views', './views');
 
 
 // Configure session middleware
@@ -173,6 +177,27 @@ app.post("/delete", async (req, res) => {
     res.send("Error deleting note.");
   }
 });
+
+app.get('/user-notes', async (req, res) => {
+  // if (!req.isAuthenticated()) {
+  //   return res.redirect("/");
+  // }
+  const username = req.query.username;
+  try {
+      // Fetch notes for the selected user based on the username
+      const notes = await db.query(
+        'SELECT * FROM notes WHERE user_id = (SELECT user_id FROM users WHERE username = $1) AND is_private = false',
+        [username]
+    );
+    console.log(notes.rows);
+
+      res.render('userNotes', { username, notes: notes.rows });
+  } catch (error) {
+      console.log(error);
+      res.status(500).send('Error fetching user notes');
+  }
+});
+
 
 // Passport authentication strategy
 passport.use(

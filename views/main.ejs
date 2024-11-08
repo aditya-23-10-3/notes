@@ -259,19 +259,20 @@
                 <h2>No Notes</h2>
             <%}%>
             <div class="userNotes">
-                <label for="users">Select User:</label>
-                <select name="users" id="users">
-                  <% if (users.length > 0) { %>
-                    <% users.forEach(user => { %>
-                      <option value="<%= user.username %>"><%= user.username %></option>
-                    <% }); %>
-                  <% } else { %>
-                    <option value="">No users available</option>
-                  <% } %>
-                </select>
-                <button type="submit">Show Notes</button>
-              </div>
-              
+                <form action="/user-notes" method="GET">
+                    <label for="users">Select User:</label>
+                    <select name="username" id="users">
+                        <% if (users.length > 0) { %>
+                            <% users.forEach(user => { %>
+                                <option value="<%= user.username %>"><%= user.username %></option>
+                            <% }); %>
+                        <% } else { %>
+                            <option value="">No users available</option>
+                        <% } %>
+                    </select>
+                    <button type="submit">Show Notes</button>
+                </form>
+            </div>
             
         </div>
     

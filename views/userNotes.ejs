@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <h1>Notes for <%= username %></h1>
+    
+    <% if (notes.length > 0) { %>
+        <ul>
+            <% notes.forEach(note => { %>
+                <li>
+                    <h3><%= note.title %></h3>
+                    <p><%= note.content %></p>
+                </li>
+            <% }); %>
+        </ul>
+    <% } else { %>
+        <p>No public notes available for <%= username %>.</p>
+    <% } %>
+
+    <a href="/notes">Back to Notes</a>
+</body>
+</html>
