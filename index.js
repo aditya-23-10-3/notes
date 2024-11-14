@@ -40,6 +40,11 @@ app.use((req, res, next) => {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use((req, res, next) => {
+  res.set("Cache-Control", "no-store, no-cache, must-revalidate, private");
+  next();
+});
+
 
 // Database configuration
 const db = new pg.Client({
@@ -197,6 +202,19 @@ app.get('/user-notes', async (req, res) => {
       res.status(500).send('Error fetching user notes');
   }
 });
+
+app.get("/logout", (req, res) => {
+  req.logout((err) => {
+    if (err) {
+      console.log(err);
+    }
+    req.session.destroy(() => {
+      res.redirect("/"); // Redirect to login page
+    });
+  });
+});
+
+
 
 
 // Passport authentication strategy

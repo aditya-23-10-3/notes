@@ -6,7 +6,7 @@
     <title>Notes Application</title>
     <style>
         body {
-            background-color: #f4f4f4;
+            background-color: #FEFFA7;
             color: #333;
             font-family: Arial, sans-serif;
             margin: 0;
@@ -62,7 +62,7 @@
         }
 
         button {
-            background-color: #fff;
+            background-color: #FABC3F;
             border: 1px solid #ccc;
             padding: 10px;
             border-radius: 5px;
@@ -115,7 +115,7 @@
        }
 
         #add {
-            background-color: #4CAF50; /* Green background */
+            background-color: #FABC3F; /* Green background */
             color: white; /* White icon */
             border: none;
             padding: 5px 8px; /* Small padding */
@@ -130,7 +130,7 @@
         }
 
         #add:hover {
-            background-color: #45a049; /* Darker green on hover */
+            background-color: #d08e0a; /* Darker green on hover */
         }
 
     #add:focus {
@@ -182,7 +182,7 @@
         width: 15px; /* Make the checkbox smaller */
         height: 15px;
         cursor: pointer;
-        accent-color: #4CAF50; /* Optional: set color for modern browsers */
+        accent-color: #efbf5d; /* Optional: set color for modern browsers */
     }
 
     /* Style for the label */
@@ -194,6 +194,31 @@
         font-weight: 500; /* Slightly bolder */
     }
 
+    .logout-button {
+            background-color: #cc8f15;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .logout-button:hover {
+            background-color: #FABC3F;
+        }
+        .showButtons {
+  padding: 4px 8px; /* Reduces padding */
+  font-size: 12px; /* Makes font smaller */
+  width: auto; /* Adjusts width to fit content */
+  height: auto; /* Adjusts height to fit content */
+  border-radius: 4px; /* Optional: makes edges slightly rounded */
+}
 
 
     </style>
@@ -215,6 +240,8 @@
         <div class="header">
             <h1>Notes</h1>
         </div>
+
+        <a href="/logout" class="logout-button">Logout</a>
         
         <div>
             
@@ -270,7 +297,7 @@
                             <option value="">No users available</option>
                         <% } %>
                     </select>
-                    <button type="submit">Show Notes</button>
+                    <button type="submit" class="showButtons">Show Notes</button>
                 </form>
             </div>
             

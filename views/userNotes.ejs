@@ -3,6 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .logout-button {
+            background-color: #ff4b5c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .logout-button:hover {
+            background-color: #e63946;
+        }
+    </style>
 </head>
 <body>
     <h1>Notes for <%= username %></h1>
@@ -20,6 +40,6 @@
         <p>No public notes available for <%= username %>.</p>
     <% } %>
 
-    <a href="/notes">Back to Notes</a>
+    <a href="/notes" class="logout-button">Back to Notes</a>
 </body>
 </html>
